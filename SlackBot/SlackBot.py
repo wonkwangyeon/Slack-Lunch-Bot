@@ -1,18 +1,17 @@
 import re
 from slackclient import SlackClient
-from SqlLite.DB import DB
 import time
 import datetime
 from Menu.MenuManager import MenuManager
-from config import config
 from toollib.logger import Logger
+from config import config
 
 
 class SlackBot(object):
     logger = Logger("SlackBot")
 
     def __init__(self):
-        self.slack_client = SlackClient(config.get('slack_api'))
+        self.slack_client = SlackClient(config.get("slack_api"))
         self.starterbot_id = None
         self.RTM_READ_DELAY = 1
         self.EXAMPLE_COMMAND = "do"

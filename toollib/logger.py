@@ -4,7 +4,7 @@ import os
 
 from config import config
 
-log_level = config.get('log_level')
+log_level = os.environ.get('LOG_LEVEL')
 
 
 def get_logger(logger_name):

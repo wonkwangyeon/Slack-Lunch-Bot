@@ -4,6 +4,8 @@ services:
   app:
     build: .
     restart: always
+    volumes:
+      - "./db:/app/db"
     environment:
       - LOG_LEVEL=debug
       - SLACK_API=

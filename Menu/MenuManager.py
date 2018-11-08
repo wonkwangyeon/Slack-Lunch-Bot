@@ -38,6 +38,11 @@ class MenuManager(object):
         return all_menu
 
     def menu_rand_select(self):
+        if len(self.menu) == 0:
+            self.menu_setting()
+            if len(self.menu) == 0:
+                return "데이터베이스에 추가된 메뉴 없음"
+
         rand_num = randrange(len(self.menu))    # 번호 추출
         today_menu = self.menu[rand_num]    # 랜덤으로 메뉴 뽑기
         del self.menu[rand_num]     # 뽑은 메뉴를 삭제.

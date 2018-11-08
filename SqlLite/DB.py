@@ -1,13 +1,37 @@
 import sqlite3
 from toollib.logger import Logger
+from pathlib import Path
 
 
 class DB(object):
     logger = Logger("DB")
 
     def __init__(self):
-        self.conn = sqlite3.connect("db/meal.db")
-        self.cur = self.conn.cursor()
+        if not Path('db/meal.db').is_file():
+            self.conn = sqlite3.connect("db/meal.db")
+            self.cur = self.conn.cursor()
+            self.db_init_table()
+        else:
+            self.conn = sqlite3.connect("db/meal.db")
+            self.cur = self.conn.cursor()
+
+    def db_init_table(self):
+        self.logger.info("SQLite3 초기화")
+        self.conn.execute("""
+                   CREATE TABLE IF NOT EXISTS menu (
+                       name TEXT NOT NULL PRIMARY KEY  /* 메뉴 이름 */                     
+                   )
+               """)
+        self.conn.commit()
+
+        self.conn.execute("""
+                           CREATE TABLE IF NOT EXISTS menu_log (
+                               id integer primary key autoincrement,  /* 로그 고유번호 */
+                               name text not null,                     /* 메뉴 이름 */
+                               time timestamp DATE DEFAULT(datetime('now', 'localtime'))   /* 날짜 */                     
+                           )
+                       """)
+        self.conn.commit()
 
     def select_all(self):
         try:

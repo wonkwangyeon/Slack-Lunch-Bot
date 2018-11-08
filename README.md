@@ -55,4 +55,4 @@ create table menu_log(
     time timestamp DATE DEFAULT(datetime('now', 'localtime')));
 ```
 
-기타 Slack Bot 생성 및 추가는 https://pangyeon.tistory.com/category/Python 확인할 수 있다.
+기타 Slack Bot 생성 및 추가는 https://pangyeon.tistory.com/22?category=682581 확인할 수 있다.

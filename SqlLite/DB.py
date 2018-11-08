@@ -6,7 +6,7 @@ class DB(object):
     logger = Logger("DB")
 
     def __init__(self):
-        self.conn = sqlite3.connect("meal.db")
+        self.conn = sqlite3.connect("db/meal.db")
         self.cur = self.conn.cursor()
 
     def select_all(self):

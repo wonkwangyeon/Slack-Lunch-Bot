@@ -2,6 +2,10 @@
 선택장애가 있는 사람들을 위한 랜덤 점심 선택 및 점심 알리미 봇.
 
 파이썬으로 제작한 Slack 점심 알리미 봇이다. 점심 메뉴를 데이터베이스에 등록해 놓으면, 지정시간마다 점심메뉴를 봇이 슬랙채널을 통해 알려준다.
+## 0. Installation1
+
+1. docker-compose에 발급받은 slack-api-token을 추가한다.
+2. `docker-compose up -d --build`로 시작
 
 ## 1. 특징 및 사용방법
 

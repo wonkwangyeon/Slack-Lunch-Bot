@@ -13,20 +13,15 @@ class SlackBot(object):
 
     def __init__(self):
         self.slack_client = SlackClient(config.get('slack_api'))
-
         self.starterbot_id = None
-        self.RTM_READ_DELAY = 1  # 1 second delay between reading from RTM
+        self.RTM_READ_DELAY = 1
         self.EXAMPLE_COMMAND = "do"
         self.MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
         self.cook_slave = MenuManager()
-
+        self.alarm_time = "110000"  # default time
 
     def parse_bot_commands(self, slack_events):
-        """
-            Parses a list of events coming from the Slack RTM API to find bot commands.
-            If a bot command is found, this function returns a tuple of command and channel.
-            If its not found, then this function returns None, None.
-        """
+
         for event in slack_events:
             if event["type"] == "message" and not "subtype" in event:
                 user_id, message = self.parse_direct_mention(event["text"])
@@ -35,12 +30,9 @@ class SlackBot(object):
         return None, None
 
     def parse_direct_mention(self, message_text):
-        """
-            Finds a direct mention (a mention that is at the beginning) in message text
-            and returns the user ID which was mentioned. If there is no direct mention, returns None
-        """
+
         matches = re.search(self.MENTION_REGEX, message_text)
-        # the first group contains the username, the second group contains the remaining message
+
         return (matches.group(1), matches.group(2).strip()) if matches else (None, None)
 
     def handle_command(self, command, channel):
@@ -51,6 +43,8 @@ class SlackBot(object):
                 response = "※SQL인젝션 금지-----\n1. 밥추천/추천/메뉴추천/메뉴 추천 ex) 밥추천\n2. 추가/밥추가/메뉴추가 ex)밥추가 돈가스\n" \
                            "3. 삭제/밥삭제/메뉴삭제 ex) 삭제 돈가스\n4. 확인/메뉴기록/메뉴로그 ex) 확인 2018-11-07\n" \
                            "5. 초기화/재세팅 ex) 초기화\n 6. 모든메뉴 ex) 모든메뉴\n7. 기타설명"
+            elif command == "alert":
+                response = "오늘의 메뉴는 " + self.cook_slave.menu_rand_select() + " 입니다."
 
             elif command.startswith("밥추천") or command.startswith("추천") or command.startswith("메뉴추천") or command.startswith("메뉴 추천"):
                 response = self.cook_slave.menu_recommend()
@@ -119,11 +113,11 @@ class SlackBot(object):
                 command, channel = self.parse_bot_commands(self.slack_client.rtm_read())
                 time_check = time.strftime('%H%M%S')
                 r = datetime.datetime.today().weekday()
-                if r == 0 and time_check == "090000": #월요일 9시에 데이터 초기화
+                if r == 0 and time_check == "090000":   #월요일 9시에 데이터 초기화
                     self.cook_slave.menu_setting()
 
                 if time_check == "110000":
-                    self.handle_command("추천", "C96UMUYDN")
+                    self.handle_command("alert", config.get('channel_url'))
 
                 if command:
                     self.handle_command(command, channel)

@@ -74,3 +74,18 @@ class MenuManager(object):
             return date+"에 먹은 음식이 존재하지 않습니다."
 
         return result
+
+    def set_alarm_time(self, time):
+        try:
+            if len(time) == 6:
+                int_time = int(time)
+                if int_time > 240000:
+                    return "시간이 24시를 초과할 수 없습니다."
+                elif int_time < 0:
+                    return "시간이 음수가 될 수 없습니다."
+                return True
+        except ValueError:
+            return "숫자가 아닙니다."
+        except Exception as e:
+            self.logger.debug(e)
+            return "시간오류"

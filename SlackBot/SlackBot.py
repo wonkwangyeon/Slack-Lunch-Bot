@@ -102,7 +102,6 @@ class SlackBot(object):
             text=response
         )
 
-
     def start(self):
         if self.slack_client.rtm_connect(with_team_state=False):
             self.logger.debug("Starter Bot connected and running!")
@@ -116,7 +115,7 @@ class SlackBot(object):
                 if r == 0 and time_check == "090000":   #월요일 9시에 데이터 초기화
                     self.cook_slave.menu_setting()
 
-                if time_check == "110000":
+                if time_check == self.alarm_time:
                     self.handle_command("alert", config.get('channel_url'))
 
                 if command:

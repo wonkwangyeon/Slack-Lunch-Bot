@@ -140,7 +140,7 @@ class SlackBot(object):
 
                 if r == 0 and time_check == "090000":   #월요일 9시에 데이터 초기화
                     self.cook_slave.menu_setting()
-        
+
                 if time_check == self.alarm_time and self.channel_url is not None:
                     self.handle_command("alert", self.channel_url)
 

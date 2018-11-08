@@ -1,14 +1,12 @@
 import sqlite3
-from random import *
 from toollib.logger import Logger
-from config import config
 
 
 class DB(object):
     logger = Logger("DB")
 
     def __init__(self):
-        self.conn = sqlite3.connect( config.get('db_url'))
+        self.conn = sqlite3.connect("meal.db")
         self.cur = self.conn.cursor()
 
     def select_all(self):

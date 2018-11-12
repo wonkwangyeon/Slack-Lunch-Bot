@@ -6,6 +6,7 @@ services:
     restart: always
     volumes:
       - "./db:/app/db"
+      - "./logs:app/logs"
     environment:
       - LOG_LEVEL=debug
       - SLACK_API=

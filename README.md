@@ -7,7 +7,7 @@
 슬랙 통신이 간혹 커넥션 에러를 발생하기 때문에 프로그램이 간혹 종료되거나, 기타 오류로 프로그램이 종료되는 경우
 재시작을 자동으로 하기 위해 docker를 사용합니다.
 
-0. docker를 설치한다. docker를 사용하지 않는 분들은 docker파일은 지우고 config파일에 직접 slack-api 토큰을 입력하고 log level을 설정하면됩니다. 
+0. docker를 설치한다. docker를 사용하지 않는 분들은 Dockerfile 과 docker-compose파일을 지우고 config파일에 직접 slack-ap의 토큰과 log level을 입력하고, 아래의 1번 2번을  app.py를 실행하면 됩니다.
 1. docker-compose에 발급받은 slack-api-token을 추가한다.
 2. `docker-compose up -d --build` 로 시작
 

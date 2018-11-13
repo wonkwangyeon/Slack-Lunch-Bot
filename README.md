@@ -4,6 +4,8 @@
 파이썬으로 제작한 Slack 점심 알리미 봇이다. 점심 메뉴를 데이터베이스에 등록해 놓으면, 지정시간마다 점심메뉴를 봇이 슬랙채널을 통해 알려준다.
 ## 0. Installation
 
+슬랙 통신이 간혹 커넥션 에러를 발생하기 때문에 프로그램이 간혹 종료되거나, 기타 오류로 프로그램이 종료되는 경우
+재시작을 자동으로 하기 위해 docker를 사용합니다.
 0. docker를 설치한다. docker를 사용하지 않는 분들을 config파일을 수정하거나 docker파일은 지우고 직접 입력하면 된다.
 1. docker-compose에 발급받은 slack-api-token을 추가한다.
 2. `docker-compose up -d --build` 로 시작
